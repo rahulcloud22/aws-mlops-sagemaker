@@ -1,14 +1,13 @@
-name: Python 3.12 CI
+name: MLOps Pipeline Test
 
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-
     - name: Set up Python 3.12
       uses: actions/setup-python@v4
       with:
@@ -19,15 +18,15 @@ jobs:
         python -m venv .venv
         source .venv/bin/activate
         pip install --upgrade pip
-        pip install sagemaker
+        pip install -r requirements.txt
 
-    - name: Patch SageMaker dependencies (if needed)
+    - name: Patch SageMaker dependencies
       run: |
         source .venv/bin/activate
         sed -i "s/dependencies = source_code.dependencies/dependencies = []/" \
             .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
 
-    - name: Test Python script
-      run: |
-        source .venv/bin/activate
-        cat .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
+    # - name: Test Python script
+    #   run: |
+    #     source .venv/bin/activate
+    #     cat .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
