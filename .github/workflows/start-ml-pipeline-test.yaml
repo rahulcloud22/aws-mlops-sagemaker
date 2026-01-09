@@ -1,8 +1,8 @@
 name: start-pipeline-execution
 
 on:
-  push:
-    branches: ["code-test"]
+  # push:
+  #   branches: ["code-test"]
   workflow_dispatch:
     inputs:
       data_s3_uri:

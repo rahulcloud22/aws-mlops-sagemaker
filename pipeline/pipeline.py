@@ -348,8 +348,8 @@ def main():
     print(f"\n###### Execution started with PipelineExecutionArn: {execution.arn}")
 
     print("Waiting for the execution to finish...")
-    execution.wait()
-    print("\n#####Execution completed. Execution step details:")
+    # execution.wait()
+    # print("\n#####Execution completed. Execution step details:")
 
     pipeline_steps = execution.list_steps()
     print(pipeline_steps)
