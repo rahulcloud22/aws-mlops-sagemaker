@@ -47,7 +47,7 @@ jobs:
           TF_VAR_environment: dev
 
       - name: Terraform Apply
-        if: ${{ github.ref == 'refs/heads/master' }}
+        # if: ${{ github.ref == 'refs/heads/master' }}
         run: terraform apply -input=false -auto-approve tfplan
         working-directory: ./terraform/deployment
         env:
