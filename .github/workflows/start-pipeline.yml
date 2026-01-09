@@ -17,14 +17,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - run: |
-      #    echo "::add-mask::${{ vars.AWS_ACCOUNT_ID }}"
+      - run: |
+         echo "::add-mask::${{ vars.AWS_ACCOUNT_ID }}"
 
-      # - name: Configure AWS credentials (OIDC)
-      #   uses: aws-actions/configure-aws-credentials@v4
-      #   with:
-      #     role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/rahul-github-role 
-      #     aws-region: us-east-1
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/rahul-github-role 
+          aws-region: us-east-1
 
       - run: aws sagemaker list-pipeline-executions --pipeline-name rahul-mlops-pipeline | jq '.PipelineExecutionSummaries | length'
 
