@@ -9,7 +9,7 @@ on:
       model_version:
         description: 'SageMaker Model Version'
         required: true
-        type: string
+        type: number
 
 permissions:
   id-token: write
