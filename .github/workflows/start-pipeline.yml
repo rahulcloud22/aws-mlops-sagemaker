@@ -28,4 +28,27 @@ jobs:
 
       - run: aws sagemaker list-pipeline-executions --pipeline-name rahul-mlops-pipeline | jq '.PipelineExecutionSummaries | length'
 
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
 
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Patch SageMaker dependencies
+        run: |
+          source .venv/bin/activate
+          sed -i "s/dependencies = source_code.dependencies/dependencies = []/" \
+              .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
+
+      - name: Start Pipeline Execution
+        run: |
+          python3 ./pipeline/pipeline.py --data-s3-uri s3://rahul-mlops-data-bucket/cleaned_data/spam.csv --gh-run-id ${{ github.run_id }} --environment dev
