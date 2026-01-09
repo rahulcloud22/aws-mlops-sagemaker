@@ -48,4 +48,5 @@ jobs:
 
       - name: Start Pipeline Execution
         run: |
+          source .venv/bin/activate
           python3 ./pipeline/pipeline.py --data-s3-uri s3://rahul-mlops-data-bucket/cleaned_data/spam.csv --gh-run-id ${{ github.run_id }} --environment dev
