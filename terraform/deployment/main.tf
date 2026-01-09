@@ -9,9 +9,6 @@ resource "aws_sagemaker_model" "model" {
   primary_container {
     model_package_name = "arn:aws:sagemaker:us-east-1:${local.account_id}:model-package/${var.model_registry}/${var.model_version}"
   }
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "aws_sagemaker_endpoint_configuration" "endpoint_config" {
