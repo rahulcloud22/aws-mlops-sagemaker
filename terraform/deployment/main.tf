@@ -17,7 +17,18 @@ resource "aws_sagemaker_endpoint_configuration" "endpoint_config" {
     variant_name           = "AllTraffic"
     model_name             = aws_sagemaker_model.model.name
     initial_instance_count = 1
-    instance_type          = "ml.m5.xlarge"
+    instance_type          = "ml.m5.large"
+  }
+  data_capture_config {
+    enable_capture = true
+    destination_s3_uri = "s3://rahul-mlops-data-bucket/gh-3/data_capture/"
+    capture_options {
+      capture_mode = "InputAndOutput"
+    }
+    initial_sampling_percentage = 100
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
 

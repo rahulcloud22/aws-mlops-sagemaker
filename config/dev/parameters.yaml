@@ -9,7 +9,7 @@ pipeline:
     ProcessingInstanceType: ml.m5.large
     TrainingInstanceType: ml.m5.large
     ModelApprovalStatus: PendingManualApproval
-    InferenceInstanceType: ml.m5.xlarge
+    InferenceInstanceType: ml.m5.large
 model:
   RegistryName: rahul-mlops-model-package-group
 train:
