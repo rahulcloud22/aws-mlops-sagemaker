@@ -25,6 +25,9 @@ resource "aws_sagemaker_endpoint_configuration" "endpoint_config" {
     capture_options {
       capture_mode = "InputAndOutput"
     }
+    capture_content_type_header {
+      csv_content_types = ["text/csv"]
+    }
     initial_sampling_percentage = 100
   }
   lifecycle {
