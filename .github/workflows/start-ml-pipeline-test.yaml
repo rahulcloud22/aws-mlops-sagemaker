@@ -30,7 +30,6 @@ jobs:
          
       - run: |
           echo gh-$GITHUB_RUN_NUMBER
-          exit 1
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
