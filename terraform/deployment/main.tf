@@ -21,9 +21,9 @@ resource "aws_sagemaker_endpoint_configuration" "endpoint_config" {
   }
   data_capture_config {
     enable_capture = true
-    destination_s3_uri = "s3://rahul-mlops-data-bucket/gh-3/data_capture/"
+    destination_s3_uri = "s3://rahul-mlops-data-bucket/gh-3/data_capture"
     capture_options {
-      capture_mode = "InputAndOutput"
+      capture_mode = "Input"
     }
     capture_content_type_header {
       csv_content_types = ["text/csv"]
