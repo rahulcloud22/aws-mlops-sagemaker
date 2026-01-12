@@ -17,7 +17,7 @@ resource "aws_sagemaker_endpoint_configuration" "endpoint_config" {
     variant_name           = "AllTraffic"
     model_name             = aws_sagemaker_model.model.name
     initial_instance_count = 1
-    instance_type          = "ml.m5.large"
+    instance_type          = "ml.m5.xlarge"
   }
   data_capture_config {
     enable_capture = true
