@@ -1,8 +1,8 @@
 name: start-pipeline-execution
 
 on:
-  push:
-    branches: ["code-test"]
+  # push:
+  #   branches: ["code-test"]
   workflow_dispatch:
     inputs:
       data_s3_uri:
@@ -63,5 +63,4 @@ jobs:
       - name: Start Pipeline Execution
         run: |
           source .venv/bin/activate
-          # python3 ./pipeline/pipeline.py --data-s3-uri ${{ inputs.data_s3_uri }} --gh-run-id gh-$GITHUB_RUN_NUMBER --environment dev
-          python3 ./pipeline/pipeline.py --data-s3-uri s3://rahul-mlops-data-bucket/cleaned_data/jan-20/spam.csv --gh-run-id gh-7 --environment dev
+          python3 ./pipeline/pipeline.py --data-s3-uri ${{ inputs.data_s3_uri }} --gh-run-id gh-$GITHUB_RUN_NUMBER --environment dev
