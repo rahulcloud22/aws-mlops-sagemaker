@@ -55,8 +55,8 @@ jobs:
       - name: Patch SageMaker dependencies
         run: |
           source .venv/bin/activate
-          sed -i "s/dependencies = source_code.dependencies/dependencies = []/" \
-              .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
+          sed -i 's|return get_training_code_hash(entry_point, source_dir, requirements)|return get_training_code_hash(entry_point, source_dir, [])|' \
+          .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
           cat .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
 
 

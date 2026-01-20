@@ -172,8 +172,7 @@ def main():
         ),
         source_code=SourceCode(
             source_dir="src",
-            entry_script="train.py",
-            requirements=[]
+            entry_script="train.py"
         ),
         base_job_name=f"{base_job_prefix}-sklearn-train",
         sagemaker_session=pipeline_session,
