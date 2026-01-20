@@ -55,6 +55,7 @@ jobs:
           TF_VAR_github_run_id: ${{ inputs.pipeline_github_id }}
           TF_VAR_environment: dev
 
-      - run: aws sagemaker update-model-package --model-package-arn 'arn:aws:sagemaker:us-east-1:${{ vars.AWS_ACCOUNT_ID }}:model-package/rahul-mlops-model-package-group/${{ inputs.model_version }}' --region 'us-east-1' --model-life-cycle '{"Stage":"Development", "StageStatus":"Approved"}'
+      - name: Update Model Lifecycle
+        run: aws sagemaker update-model-package --model-package-arn 'arn:aws:sagemaker:us-east-1:${{ vars.AWS_ACCOUNT_ID }}:model-package/rahul-mlops-model-package-group/${{ inputs.model_version }}' --region 'us-east-1' --model-life-cycle '{"Stage":"Development", "StageStatus":"Approved"}'
 
 
