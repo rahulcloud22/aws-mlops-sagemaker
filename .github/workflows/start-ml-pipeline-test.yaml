@@ -50,7 +50,6 @@ jobs:
           source .venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
-          pip show sagemaker
 
 
       - name: Patch SageMaker dependencies
@@ -58,7 +57,7 @@ jobs:
           source .venv/bin/activate
           sed -i "s/dependencies = source_code.dependencies/dependencies = []/" \
               .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
-          pip show sagemaker
+          cat .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
 
 
       - name: Start Pipeline Execution

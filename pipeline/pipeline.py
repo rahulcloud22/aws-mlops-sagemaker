@@ -341,18 +341,18 @@ def main():
     )
 
     pipeline.upsert(role_arn=role)
-    execution = pipeline.start(
-        execution_display_name = f"execution-{gh_run_id}",
-        parameters=pipeline_parameters
-    )
-    print(f"\n###### Execution started with PipelineExecutionArn: {execution.arn}")
+    # execution = pipeline.start(
+    #     execution_display_name = f"execution-{gh_run_id}",
+    #     parameters=pipeline_parameters
+    # )
+    # print(f"\n###### Execution started with PipelineExecutionArn: {execution.arn}")
 
     print("Waiting for the execution to finish...")
     # execution.wait()
     # print("\n#####Execution completed. Execution step details:")
 
-    pipeline_steps = execution.list_steps()
-    print(pipeline_steps)
+    # pipeline_steps = execution.list_steps()
+    # print(pipeline_steps)
 
 if __name__ == "__main__":
     main()
