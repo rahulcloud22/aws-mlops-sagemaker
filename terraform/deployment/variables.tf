@@ -1,3 +1,8 @@
+variable "application_name" {
+  type = string
+  default = "rahul-mlops"
+}
+
 variable "model_version" {
   type = string
 }
