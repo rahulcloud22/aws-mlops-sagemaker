@@ -1,0 +1,18 @@
+app:
+  name: spam-classifier
+  version: v1.0
+  environment: dev
+pipeline:
+  sagemaker_bucket: rahul-mlops-data-bucket
+  parameters:
+    ProcessingInstanceCount: 1
+    ProcessingInstanceType: ml.m5.large
+    TrainingInstanceType: ml.m5.large
+    ModelApprovalStatus: PendingManualApproval
+    InferenceInstanceType: ml.m5.large
+model:
+  RegistryName: rahul-mlops-model-package-group
+train:
+  hyperparameters:
+    lr: 0.01
+    epochs: 5

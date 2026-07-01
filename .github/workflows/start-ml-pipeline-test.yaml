@@ -1,0 +1,66 @@
+name: start-pipeline-execution
+
+on:
+  # push:
+  #   branches: ["code-test"]
+  workflow_dispatch:
+    inputs:
+      data_s3_uri:
+        description: 'S3 URI for input data'
+        required: true
+      
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    environment: DEV
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - run: |
+         echo "::add-mask::$AWS_ACCOUNT_ID"
+         
+      - run: |
+          echo gh-$GITHUB_RUN_NUMBER
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/rahul-mlops-github-role
+          aws-region: us-east-1
+
+      - run: aws sagemaker list-pipeline-executions --pipeline-name rahul-mlops-pipeline | jq '.PipelineExecutionSummaries | length'
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+
+      - name: Patch SageMaker dependencies
+        run: |
+          source .venv/bin/activate
+          sed -i 's|return get_training_code_hash(entry_point, source_dir, requirements)|return get_training_code_hash(entry_point, source_dir, [])|' \
+          .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
+          cat .venv/lib/python3.12/site-packages/sagemaker/core/workflow/utilities.py
+
+
+      - name: Start Pipeline Execution
+        run: |
+          source .venv/bin/activate
+          python3 ./pipeline/pipeline.py --data-s3-uri ${{ inputs.data_s3_uri }} --gh-run-id gh-$GITHUB_RUN_NUMBER --environment dev

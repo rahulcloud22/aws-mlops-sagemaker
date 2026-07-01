@@ -1,0 +1,19 @@
+formatter: "markdown"
+
+output:
+  file: "README.md"
+
+content: |
+  {{ .Resources }}
+
+  {{ .Providers }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+settings:
+  anchor: false
+  description: true
+  hide-empty: true
+  html: false
